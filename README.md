@@ -41,7 +41,7 @@
 
 Este projeto foi desenvolvido para a disciplina de **Tópicos Avançados em Inteligência Artificial** da UFSC, com foco em detectar e segmentar espécies invasoras (javali e javaporco) em imagens agrícolas usando técnicas avançadas de **Visão Computacional**.
 
-## 📋 Estrutura
+### 📋 Estrutura
 ```
 WILD-BOAR-SEG-VISION-GAME
 ├── assets
