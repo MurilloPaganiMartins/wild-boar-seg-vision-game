@@ -41,6 +41,45 @@
 
 Este projeto foi desenvolvido para a disciplina de **Tópicos Avançados em Inteligência Artificial** da UFSC, com foco em detectar e segmentar espécies invasoras (javali e javaporco) em imagens agrícolas usando técnicas avançadas de **Visão Computacional**.
 
+## 📋 Estrutura
+```
+WILD-BOAR-SEG-VISION-GAME
+├── assets
+│   ├── fig1.jpg
+│   └── fig2.png
+├── backend
+│   ├── app
+│   │   ├── api
+│   │   │   └── routes.py
+│   │   ├── models
+│   │   ├── config.py
+│   │   ├── constants.py
+│   │   ├── database.py
+│   │   ├── schemas.py
+│   │   └── main.py
+│   └── __init__.py
+├── frontend
+│   ├── public
+│   │   └── sounds
+│   ├── src
+│   ├── package.json
+│   ├── next.config.js
+│   ├── tailwind.config.ts
+│   └── tsconfig.json
+├── ml
+│   ├── data
+│   ├── models
+│   └── training
+├── scripts
+│   ├── check-security.sh
+│   ├── organize-images.sh
+│   ├── prepare_dataset.py
+│   └── start-dev.sh
+├── .gitignore
+├── README.md
+└── SECURITY.md
+```
+
 ### 🎯 Objetivo
 
 Criar um sistema interativo e educacional que demonstra a aplicação prática de **Deep Learning** para detecção de fauna, gamificando a experiência através de uma competição entre humano e IA.
