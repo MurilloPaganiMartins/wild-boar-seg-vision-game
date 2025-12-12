@@ -41,44 +41,85 @@
 
 Este projeto foi desenvolvido para a disciplina de **Tópicos Avançados em Inteligência Artificial** da UFSC, com foco em detectar e segmentar espécies invasoras (javali e javaporco) em imagens agrícolas usando técnicas avançadas de **Visão Computacional**.
 
-### 📋 Estrutura
+## 🏗️ Arquitetura do Projeto
+
 ```
-WILD-BOAR-SEG-VISION-GAME
-├── assets
-│   ├── fig1.jpg
-│   └── fig2.png
-├── backend
-│   ├── app
-│   │   ├── api
-│   │   │   └── routes.py
-│   │   ├── models
-│   │   ├── config.py
-│   │   ├── constants.py
-│   │   ├── database.py
-│   │   ├── schemas.py
-│   │   └── main.py
-│   └── __init__.py
-├── frontend
-│   ├── public
-│   │   └── sounds
-│   ├── src
+trabalho-final/
+│
+├── 📁 backend/                      # API FastAPI + Serviços ML
+│   ├── 📁 app/
+│   │   ├── 📁 api/
+│   │   │   └── routes.py           # Endpoints REST
+│   │   ├── 📁 models/
+│   │   │   ├── database.py         # Configuração SQLAlchemy
+│   │   │   └── schemas.py          # Modelos Pydantic
+│   │   ├── 📁 services/
+│   │   │   ├── detection_service.py    # Detecção YOLOv8-seg
+│   │   │   ├── game_service.py         # Lógica do jogo
+│   │   │   └── ai_learning_service.py  # IA adaptativa
+│   │   ├── config.py               # Configurações
+│   │   ├── constants.py            # Constantes do sistema
+│   │   └── main.py                 # Aplicação FastAPI
+│   ├── javali_seg.pt               # Modelo treinado
+│   ├── requirements.txt
+│   └── .env.example
+│
+├── 📁 frontend/                     # Next.js + React + Tailwind
+│   ├── 📁 src/
+│   │   ├── 📁 app/                 # App Router (Next.js 14)
+│   │   │   ├── layout.tsx
+│   │   │   ├── page.tsx
+│   │   │   └── globals.css
+│   │   ├── 📁 components/
+│   │   │   ├── 📁 game/
+│   │   │   │   ├── DualArena.tsx       # Arena dupla (modo competitivo)
+│   │   │   │   ├── GameArena.tsx       # Arena principal
+│   │   │   │   ├── GameResults.tsx     # Tela de resultados
+│   │   │   │   ├── Scoreboard.tsx      # Placar
+│   │   │   │   └── SegmentationOverlay.tsx  # Overlay de máscaras
+│   │   │   └── 📁 ui/
+│   │   │       ├── CustomCursor.tsx    # Cursor personalizado
+│   │   │       ├── HowToPlay.tsx       # Tutorial
+│   │   │       └── TargetAnimation.tsx # Animações
+│   │   ├── 📁 hooks/
+│   │   │   └── useSoundEffects.ts      # Efeitos sonoros
+│   │   ├── 📁 services/
+│   │   │   └── api.ts              # Cliente API
+│   │   └── 📁 store/
+│   │       └── gameStore.ts        # Estado Zustand
+│   ├── 📁 public/
+│   │   ├── 📁 images/
+│   │   └── 📁 sounds/
 │   ├── package.json
-│   ├── next.config.js
 │   ├── tailwind.config.ts
 │   └── tsconfig.json
-├── ml
-│   ├── data
-│   ├── models
-│   └── training
-├── scripts
-│   ├── check-security.sh
-│   ├── organize-images.sh
-│   ├── prepare_dataset.py
-│   └── start-dev.sh
-├── .gitignore
-├── README.md
-└── SECURITY.md
+│
+├── 📁 ml/                           # Machine Learning
+│   ├── 📁 data/
+│   │   └── 📁 data/
+│   │       └── 📁 agriculture-jwqz1/   # Dataset HTW
+│   │           ├── data.yaml
+│   │           ├── 📁 train/
+│   │           ├── 📁 valid/
+│   │           └── 📁 test/
+│   ├── 📁 training/
+│   │   ├── train_segmentation.py   # Script de treinamento
+│   │   ├── train_detector.py       # Script alternativo
+│   │   └── 📁 runs/                # Resultados do treinamento
+│   └── 📁 venv/                    # Ambiente virtual Python
+│
+├── 📁 scripts/
+│   ├── check-security.sh           # Verificação de segurança
+│   └── start-dev.sh                # Script de desenvolvimento
+│
+├── 📁 docs/                         # Documentação adicional
+├── 📁 assets/                       # Recursos visuais
+├── README.md                        # Este arquivo
+├── SECURITY.md                      # Políticas de segurança
+└── LICENSE                          # Licença MIT
 ```
+
+---
 
 ### 🎯 Objetivo
 
@@ -455,85 +496,7 @@ graph TD
 
 ---
 
-## 🏗️ Arquitetura do Projeto
 
-```
-trabalho-final/
-│
-├── 📁 backend/                      # API FastAPI + Serviços ML
-│   ├── 📁 app/
-│   │   ├── 📁 api/
-│   │   │   └── routes.py           # Endpoints REST
-│   │   ├── 📁 models/
-│   │   │   ├── database.py         # Configuração SQLAlchemy
-│   │   │   └── schemas.py          # Modelos Pydantic
-│   │   ├── 📁 services/
-│   │   │   ├── detection_service.py    # Detecção YOLOv8-seg
-│   │   │   ├── game_service.py         # Lógica do jogo
-│   │   │   └── ai_learning_service.py  # IA adaptativa
-│   │   ├── config.py               # Configurações
-│   │   ├── constants.py            # Constantes do sistema
-│   │   └── main.py                 # Aplicação FastAPI
-│   ├── javali_seg.pt               # Modelo treinado
-│   ├── requirements.txt
-│   └── .env.example
-│
-├── 📁 frontend/                     # Next.js + React + Tailwind
-│   ├── 📁 src/
-│   │   ├── 📁 app/                 # App Router (Next.js 14)
-│   │   │   ├── layout.tsx
-│   │   │   ├── page.tsx
-│   │   │   └── globals.css
-│   │   ├── 📁 components/
-│   │   │   ├── 📁 game/
-│   │   │   │   ├── DualArena.tsx       # Arena dupla (modo competitivo)
-│   │   │   │   ├── GameArena.tsx       # Arena principal
-│   │   │   │   ├── GameResults.tsx     # Tela de resultados
-│   │   │   │   ├── Scoreboard.tsx      # Placar
-│   │   │   │   └── SegmentationOverlay.tsx  # Overlay de máscaras
-│   │   │   └── 📁 ui/
-│   │   │       ├── CustomCursor.tsx    # Cursor personalizado
-│   │   │       ├── HowToPlay.tsx       # Tutorial
-│   │   │       └── TargetAnimation.tsx # Animações
-│   │   ├── 📁 hooks/
-│   │   │   └── useSoundEffects.ts      # Efeitos sonoros
-│   │   ├── 📁 services/
-│   │   │   └── api.ts              # Cliente API
-│   │   └── 📁 store/
-│   │       └── gameStore.ts        # Estado Zustand
-│   ├── 📁 public/
-│   │   ├── 📁 images/
-│   │   └── 📁 sounds/
-│   ├── package.json
-│   ├── tailwind.config.ts
-│   └── tsconfig.json
-│
-├── 📁 ml/                           # Machine Learning
-│   ├── 📁 data/
-│   │   └── 📁 data/
-│   │       └── 📁 agriculture-jwqz1/   # Dataset HTW
-│   │           ├── data.yaml
-│   │           ├── 📁 train/
-│   │           ├── 📁 valid/
-│   │           └── 📁 test/
-│   ├── 📁 training/
-│   │   ├── train_segmentation.py   # Script de treinamento
-│   │   ├── train_detector.py       # Script alternativo
-│   │   └── 📁 runs/                # Resultados do treinamento
-│   └── 📁 venv/                    # Ambiente virtual Python
-│
-├── 📁 scripts/
-│   ├── check-security.sh           # Verificação de segurança
-│   └── start-dev.sh                # Script de desenvolvimento
-│
-├── 📁 docs/                         # Documentação adicional
-├── 📁 assets/                       # Recursos visuais
-├── README.md                        # Este arquivo
-├── SECURITY.md                      # Políticas de segurança
-└── LICENSE                          # Licença MIT
-```
-
----
 
 ## 🚀 Instalação e Execução
 
